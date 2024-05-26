@@ -1,4 +1,4 @@
-package com.example.jp.j12;
+package com.example.jp.j13;
 
 public class SwitchCase {
 
