@@ -1,6 +1,6 @@
 package com.example.jp.j12;
 
-public class InstanceOFPrac {
+public  class InstanceOFPrac {
 
     public static void main(String[] args) {
         Object a ="urvil";
