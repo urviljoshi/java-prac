@@ -7,18 +7,40 @@ import static java.lang.Thread.sleep;
 
 public class VirtualThreads {
 
-    public static void main(String[] args) {
-        long a =0;
 
-        try (var exe = Executors.newVirtualThreadPerTaskExecutor()) {
-            IntStream.range(0, 10_000).forEach(i ->
+
+    public static void main(String[] args) {
+       fixedPool();
+        virtualThreads();
+    }
+
+    private static void fixedPool() {
+        long a =System.currentTimeMillis();
+
+        try (var exe = Executors.newFixedThreadPool(20)) {
+            IntStream.range(0, 100).forEach(i ->
                     exe.submit(() -> {
-                        Thread.sleep(1000);
+                        Thread.sleep(100);
                         return i;
                     })
             );
         }
 
-        System.out.println("virtual threads" + (System.currentTimeMillis()-a));
+        System.out.println("fixed OS threads  ::" + (System.currentTimeMillis()-a));
+    }
+
+    private static void virtualThreads() {
+        long a =System.currentTimeMillis();
+
+        try (var exe = Executors.newVirtualThreadPerTaskExecutor()) {
+            IntStream.range(0, 100).forEach(i ->
+                    exe.submit(() -> {
+                        Thread.sleep(100);
+                        return i;
+                    })
+            );
+        }
+
+        System.out.println("virtual threads  :: " + (System.currentTimeMillis()-a));
     }
 }
