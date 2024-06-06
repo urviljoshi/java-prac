@@ -11,13 +11,13 @@ public class StructuredConcurrency {
 
     }
 
-    Resp handleUnStructureAPI() throws ExecutionException, InterruptedException {
+    Resp handleUnStructureAPI() throws InterruptedException {
         try (var scope = new StructuredTaskScope.ShutdownOnFailure()) {
             StructuredTaskScope.Subtask<String> user = scope.fork(this::findUser);
             StructuredTaskScope.Subtask<Integer> order =scope.fork(this::fetchOrder);
             scope.join();
             scope.throwIfFailed();
-            return new Resp( order.get(),user.get());
+            return new Resp(order.get(),user.get());
         } catch (ExecutionException e) {
             throw new RuntimeException(e);
         }
