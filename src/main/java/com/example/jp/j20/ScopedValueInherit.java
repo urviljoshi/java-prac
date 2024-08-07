@@ -12,7 +12,7 @@ public class ScopedValueInherit implements Runnable{
                 System.out.println("child:: "+s.get());
             }
         });
-        ScopedValue.where(s,"child thread").run();
+       // ScopedValue.where(s,"child thread").run();
     }
 
     public static void main(String[] args) {
